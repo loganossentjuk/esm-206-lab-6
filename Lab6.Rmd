@@ -26,12 +26,17 @@ HA: Ranks are not equal (or, medians are not equal).
 
 ```{r}
 set.seed(1414)
+<<<<<<< HEAD
 gp_1 <- sample.int(20, size = 15, replace = TRUE) #20 is highest number, size of sample is 15, replaceable is true
+=======
+gp_1 <- sample.int(20, size = 15, replace = TRUE) #20 is highest number, size of sample is 15, replacable is true
+>>>>>>> 82722385074811ec0f936efd8860facbab5a414f
 
 set.seed(1424)
 gp_2 <- sample.int(30, size = 15, replace = TRUE)
 ```
 
+<<<<<<< HEAD
 Take a quick look at the distributions using `hist()`
 
 ```{r}
@@ -65,4 +70,65 @@ This p-value means that if our samples are drawn from a population with the same
 No significant difference in medians (Mann-Whitney U; U = `r mwu$statistic`, p = `r round(mwu$p.value,2)` )
 
 The medians of group A (M = 22.4 g) and group B (M = 31.2g) did not differ significantly (Mann-Whitney U = X). 
+
+#Sample linear regression 
+
+Two *continuous quantitative* variables you are trying to understand the relationship between, and you think that a linear relationship makes sense. 
+
+```{r}
+#Use View(penguins) to look at it
+# Make an exploratory scatter plot of penguin flipper length (x-axis) versus body mass (y-axis)
+
+ggplot(data = penguins, aes(x= flipper_length_mm, y = body_mass_g)) +
+  geom_point() +
+  geom_smooth(method =  "lm")
+```
+
+### Find the model estimates (coefficients)
+
+Use the `lm()` function for linear model 
+
+body_mass_g ~ <<<< tilde (not a minus sign)
+
+```{r}
+penguin_lm <- lm(body_mass_g ~ flipper_length_mm, data = penguins)
+```
+
+Model coefficients : `r penguin_lm$coefficients`
+Flipper length coefficient: `r penguin_lm$coefficients[2]`
+
+### Use `broom:tidy()` to get a tidy output from lm()
+
+```{r}
+penguin_lm_tidy <- tidy(penguin_lm)
+
+penguin_lm_tidy
+
+penguin
+```
+
+
+### Use `broom:glance() to get output of model fit & statistical significance
+
+
+```{r}
+penguin_lm_glance <- glance(penguin_lm)
+
+penguin_lm_glance
+
+```
+
+### Use equationmatic::extract_eq() to return model in LaTex
+
+```{r}
+extract_eq(model = penguin_lm, use_coefs = TRUE)
+```
+
+### Use `plot()` function to automatically produce diagnostic plots 
+
+```{r}
+plot(penguin_lm)
+```
+
+
 
