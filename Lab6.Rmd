@@ -1,0 +1,34 @@
+---
+title: "Lab6"
+author: "Logan Ossentjuk"
+date: "11/2/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(palmerpenguins)
+library(broom)
+library(equatiomatic)
+```
+
+## Rank based test example 
+
+Mann-Whitney U (non-parametric alternative to an unpaired 2-sample t-test).
+
+H0: Equal ranks (or medians).
+HA: Ranks are not equal (or, medians are not equal).
+
+### Create samples 
+`set.seed()` to create "pseudorandom but reproducible samples"
+
+```{r}
+set.seed(1414)
+gp_1 <- sample.int(20, size = 15, replace = TRUE) #20 is highest number, size of sample is 15, replacable is true
+
+set.seed(1424)
+gp_2 <- sample.int(30, size = 15, replace = TRUE)
+```
+
